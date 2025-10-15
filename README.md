@@ -34,6 +34,7 @@ Warmup project/
   ```
   cd backend
   python main.py
+  uvicorn main:app --reload --port 8000
   ```
 - The API will run at `http://127.0.0.1:8000`
 
