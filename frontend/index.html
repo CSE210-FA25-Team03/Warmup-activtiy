@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Demojifier</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --gap: 12px;
+      --border: #d1d5db;
+      --bg: #e6f3ff; /* Light blue background */
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 32px;
+      width: 90%;
+      max-width: 900px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: #111827;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+    textarea {
+      width: 100%;
+      min-height: 240px;
+      resize: vertical;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .controls {
+      display: flex;
+      gap: var(--gap);
+      margin-top: 12px;
+      justify-content: center;
+    }
+    button {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      background: #f3f4f6;
+    }
+    button.primary {
+      background: black;
+      color: white;
+      border-color: black;
+    }
+    .right-col {
+      position: relative;
+    }
+    .status {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 12px;
+      color: #6b7280;
+      background: #f5f5f5;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+    @media (max-width: 800px) {
+      .row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Demojifier</h1>
+    <div class="row">
+      <div>
+        <textarea id="input" placeholder="Paste text with emojis here… e.g. That movie was 🔥🔥😂"></textarea>
+        <div class="controls">
+          <button class="primary" id="convertBtn">Convert</button>
+          <button id="clearBtn">Clear</button>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="status" id="status" hidden>ready</div>
+        <textarea id="output" placeholder="Converted output appears here…" readonly></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "http://127.0.0.1:8000";
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const btn = document.getElementById('convertBtn');
+    const clear = document.getElementById('clearBtn');
+    const statusEl = document.getElementById('status');
+
+    function setStatus(text, show=true) {
+      statusEl.textContent = text;
+      statusEl.hidden = !show;
+    }
+
+    clear.addEventListener('click', () => {
+      input.value = '';
+      output.value = '';
+      setStatus('cleared');
+      setTimeout(() => setStatus('', false), 700);
+    });
+
+    btn.addEventListener('click', async () => {
+      const text = input.value.trim();
+      if (!text) { output.value = ''; return; }
+      setStatus('converting…');
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/convert`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, mode: 'auto' })
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        output.value = data.output || '';
+        setStatus(`${data.source} • ${data.reason}`);
+      } catch (err) {
+        output.value = '';
+        setStatus('error');
+        alert('Conversion failed. Check backend is running.\n\n' + err);
+      } finally {
+        btn.disabled = false;
+        setTimeout(() => setStatus('', false), 2000);
+      }
+    });
+  </script>
+</body>
+</html>
