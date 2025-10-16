@@ -39,16 +39,22 @@ Demojifier is a web application that converts text containing emojis into their 
 
 ## 🗂️ Project Structure
 ```
-Warmup project/
+Warmup-Project/
 ├── backend/
-│   ├── demojify_lib.py      # Core emoji conversion logic
-│   ├── main.py              # FastAPI backend server
-│   ├── requirements.txt     # Python dependencies
-│   └── __pycache__/         # Python cache files
+│   ├── demojify_lib.py          # Core emoji conversion logic
+│   ├── main.py                  # FastAPI backend server
+│   ├── requirements.txt         # Python dependencies
+│   ├── test/
+│   │   └── test_demojify_api.py # Pytest-based API + logic unit tests
+│   └── __pycache__/             # Python bytecode cache files (auto-generated)
+
 ├── frontend/
-│   └── index.html           # Web frontend
-|   └── script.js            # Frontend logic
-|   └── style.css            # Stylesheet
+│   ├── index.html               # Web frontend
+│   ├── script.js                # Frontend logic
+│   └── style.css                # Stylesheet
+
+├── pytest.ini                   # Pytest configuration (test discovery + options)
+└── README.md                    # Project documentation (this file)
 ```
 
 ## 🛠️ Getting Started
@@ -109,6 +115,21 @@ Warmup project/
 
 ## 🧪 Testing
 
+All tests are located in `backend/test/test_demojify_api.py` and executed with **pytest**.
+
+**Test coverage includes:**
+- Empty input validation  
+- LLM acceptance, rejection, and error fallback  
+- Standard mode bypass
+- Emoji sanitization and output cleanup  
+- Health endpoint contract check  
+- Missing LLM client fallback  
+
+Run all tests from the project root:
+
+```bash
+pytest -v
+```
 
 
 ## 📚 Documentation
