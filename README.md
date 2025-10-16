@@ -7,10 +7,6 @@
        width="700">
 </p>
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/1ab3d6cf-22d3-4f7b-b196-8b7ee96393ba" alt="Demo Screenshot" width="700">
-</p>
-
 
 ## 🔎 Overview
 Demojifier is a web application that converts text containing emojis into their English meanings using both rules-based heuristics and an LLM (Large Language Model) backend. The project consists of a Python FastAPI backend and a simple HTML/JavaScript frontend.
