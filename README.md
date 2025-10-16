@@ -47,12 +47,15 @@ Warmup-Project/
 │   ├── test/
 │   │   └── test_demojify_api.py # Pytest-based API + logic unit tests
 │   └── __pycache__/             # Python bytecode cache files (auto-generated)
-
 ├── frontend/
 │   ├── index.html               # Web frontend
 │   ├── script.js                # Frontend logic
 │   └── style.css                # Stylesheet
-
+├── docs/                        # Documents
+│   ├── Full Project Recap.docx
+│   ├── Technical Workflow.pdf
+│   ├── Meeting Note.pdf
+│   └── Presentation.pptx
 ├── pytest.ini                   # Pytest configuration (test discovery + options)
 └── README.md                    # Project documentation (this file)
 ```
@@ -133,11 +136,11 @@ pytest -v
 
 
 ## 📚 Documentation
-Read the **[Meeting Notes](https://docs.google.com/document/d/1DLak7VWDhTTRcfv64Gbn3qyaIHMTnSWEAE6VK-vTGZk/edit?usp=sharing)** to follow our project discussion history  
-Read the **[Presentation Slides](https://docs.google.com/presentation/d/1Z6JvXAd2ZDwGjGqeZTaM_HdVlnZxKXbSda8f-Um7mF0/edit)** for project summary and results  
-Read the **[Technical Workflow](https://drive.google.com/file/d/1XLBwsODNhjaRPGjTNb2JogixVMo3hJyE/view?usp=sharing)** to learn how the Demojifier pipeline works
+Read the **[Meeting Notes](docs/Meeting%20Note.pdf)** to follow our project discussion history  
+Read the **[Presentation Slides](docs/Presentation.pptx)** for project summary and results  
+Read the **[Technical Workflow](docs/Technical%20Workflow.pdf)** to learn how the Demojifier pipeline works  
 
-Read the **[Full Project Recap](https://docs.google.com/document/d/1w93eijPeWnHzrmrYtTznc84b64LylgV1/edit?usp=sharing&ouid=108800923190919022098&rtpof=true&sd=true)** for more project details.
+Read the **[Full Project Recap](docs/Full%20Project%20Recap.docx)** for a full summary of the project
 
 ## ⚖️ License
 This project is licensed under the **MIT License**.
